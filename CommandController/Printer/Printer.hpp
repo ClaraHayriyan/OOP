@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_PRINTER
-#define COMMAND_CONTROLLER_PRINTER
+#ifndef COMMAND_CONTROLLER_PRINTER_PRINTER
+#define COMMAND_CONTROLLER_PRINTER_PRINTER
 
 #include "IPrinter.hpp"
 
@@ -10,4 +10,4 @@ public:
     virtual void output(std::string) override;
 };
 
-#endif // COMMAND_CONTROLLER_PRINTER
+#endif // COMMAND_CONTROLLER_PRINTER_PRINTER

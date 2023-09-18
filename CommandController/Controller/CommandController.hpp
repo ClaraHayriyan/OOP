@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER
-#define COMMAND_CONTROLLER
+#ifndef COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
+#define COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
 
 #include "../Input/IInput.hpp"
 #include "../Parser/IParser.hpp"
@@ -29,4 +29,4 @@ private:
     PrinterPtr printer_;
 };
 
-#endif // COMMAND_CONTROLLER 
+#endif // COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER

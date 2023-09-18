@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_COMMAND
-#define COMMAND_CONTROLLER_COMMAND
+#ifndef COMMAND_CONTROLLER_COMMAND_COMMAND
+#define COMMAND_CONTROLLER_COMMAND_COMMAND
 
 #include "ICommand.hpp"
 
@@ -48,4 +48,4 @@ public:
     virtual std::string execute(std::stringstream args) override;
 };
 
-#endif // COMMAND_CONTROLLER_COMMAND
+#endif // COMMAND_CONTROLLER_COMMAND_COMMAND

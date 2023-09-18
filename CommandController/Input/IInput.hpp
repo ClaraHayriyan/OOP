@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_IINPUT
-#define COMMAND_CONTROLLER_IINPUT
+#ifndef COMMAND_CONTROLLER_INPUT_IINPUT
+#define COMMAND_CONTROLLER_INPUT_IINPUT
 
 #include <sstream>
 
@@ -8,4 +8,4 @@ public:
     virtual std::stringstream read() =0;
 };
 
-#endif // COMMAND_CONTROLLER_IINPUT
+#endif // COMMAND_CONTROLLER_INPUT_IINPUT

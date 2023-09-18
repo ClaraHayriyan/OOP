@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_ICOMMAND
-#define COMMAND_CONTROLLER_ICOMMAND
+#ifndef COMMAND_CONTROLLER_COMMAND_ICOMMAND
+#define COMMAND_CONTROLLER_COMMAND_ICOMMAND
 
 #include <sstream>
 #include <string>
@@ -9,5 +9,4 @@ public:
     virtual std::string execute(std::stringstream args) =0;
 };
 
-
-#endif // COMMAND_CONTROLLER_ICOMMAND
+#endif // COMMAND_CONTROLLER_COMMAND_ICOMMAND

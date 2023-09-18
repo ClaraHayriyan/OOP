@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_IPARSER
-#define COMMAND_CONTROLLER_IPARSER
+#ifndef COMMAND_CONTROLLER_PARSER_IPARSER
+#define COMMAND_CONTROLLER_PARSER_IPARSER
 
 #include <sstream>
 #include <string>
@@ -12,4 +12,4 @@ public:
     virtual ParsingResult parseCommand(std::stringstream) =0;
 };
 
-#endif // COMMAND_CONTROLLER_IPARSER
+#endif // COMMAND_CONTROLLER_PARSER_IPARSER

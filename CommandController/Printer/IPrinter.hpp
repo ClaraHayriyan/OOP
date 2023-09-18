@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_IPRINTER
-#define COMMAND_CONTROLLER_IPRINTER
+#ifndef COMMAND_CONTROLLER_PRINTER_IPRINTER
+#define COMMAND_CONTROLLER_PRINTER_IPRINTER
 
 #include <string>
 
@@ -8,4 +8,4 @@ public:
     virtual void output(std::string) =0;
 };
 
-#endif // COMMAND_CONTROLLER_IPRINTER
+#endif // COMMAND_CONTROLLER_PRINTER_IPRINTER
