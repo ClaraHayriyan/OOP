@@ -1,20 +1,20 @@
 #include "CommandRegistry.hpp"
-#include "../Command/Command.hpp"
+#include "../Command/Commands.hpp"
 
 CommandRegistry::CommandRegistry() {
     registerCommands();
 }
 
 void CommandRegistry::registerCommands() {
-    registry_["ADD"] = CommandPtr(new Add);
-    registry_["SUB"] = CommandPtr(new Sub);
-    registry_["MUL"] = CommandPtr(new Mul);
-    registry_["DIV"] = CommandPtr(new Div);
-    registry_["AND"] = CommandPtr(new And);
-    registry_["OR"] = CommandPtr(new Or);
-    registry_["XOR"] = CommandPtr(new Xor);
-    registry_["NOT"] = CommandPtr(new Not);
-    registry_["QUIT"] = CommandPtr(new Quit);
+    registry_["add"] = CommandPtr(new Add);
+    registry_["sub"] = CommandPtr(new Sub);
+    registry_["mul"] = CommandPtr(new Mul);
+    registry_["div"] = CommandPtr(new Div);
+    registry_["and"] = CommandPtr(new And);
+    registry_["or"] = CommandPtr(new Or);
+    registry_["xor"] = CommandPtr(new Xor);
+    registry_["not"] = CommandPtr(new Not);
+    registry_["quit"] = CommandPtr(new Quit);
 }
 
 auto CommandRegistry::findCommand(std::string commandName) -> CommandPtr& {

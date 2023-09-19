@@ -1,51 +1,24 @@
-#ifndef COMMAND_CONTROLLER_COMMAND_COMMAND
-#define COMMAND_CONTROLLER_COMMAND_COMMAND
+#ifndef COMMAND_CONTROLLER_COMMAND_ICOMMAND
+#define COMMAND_CONTROLLER_COMMAND_ICOMMAND
 
-#include "ICommand.hpp"
+#include <sstream>
+#include <string>
+#include <utility> // std::pair
+#include <vector>
 
-class Add : public ICommand {
+using OperandType = std::pair<std::string, double>;
+using Result = double;
+
+class Command {
 public:
-    virtual std::string execute(std::stringstream args) override;
+    void addOperand(OperandType operand);
+    void reset();
+    virtual void validate() =0;
+    virtual Result execute() =0;
+    virtual ~Command() {}
+    
+protected:
+    std::vector<OperandType> operands;
 };
 
-class Sub : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class Mul : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class Div : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class And : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class Or : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class Xor : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class Not : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-class Quit : public ICommand {
-public:
-    virtual std::string execute(std::stringstream args) override;
-};
-
-#endif // COMMAND_CONTROLLER_COMMAND_COMMAND
+#endif // COMMAND_CONTROLLER_COMMAND_ICOMMAND

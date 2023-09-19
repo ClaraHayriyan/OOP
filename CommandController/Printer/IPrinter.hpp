@@ -3,8 +3,11 @@
 
 #include <string>
 
+using Result = double;
+
 class IPrinter {
 public:
+    virtual void output(Result) =0;
     virtual void output(std::string) =0;
 };
 

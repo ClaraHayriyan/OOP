@@ -7,6 +7,7 @@
 
 class Printer : public IPrinter {
 public:
+    virtual void output(Result) override;
     virtual void output(std::string) override;
 };
 
