@@ -1,11 +1,19 @@
 #ifndef COMMAND_CONTROLLER_PARSER_PARSER
 #define COMMAND_CONTROLLER_PARSER_PARSER
 
-#include "IParser.hpp"
+#include "../Command/Command.hpp"
+#include "../CommandRegistry/CommandRegistry.hpp"
 
-class Parser : public IParser {
+#include <istream>
+
+class Parser {
 public:
-    virtual ParsingResult parseCommand(std::stringstream) override;
+    Parser(std::istream&);
+    CommandPtr& parseCommand();
+
+private:
+    std::istream& input_;
+    CommandRegistry commandRegistry_;
 };
 
 #endif // COMMAND_CONTROLLER_PARSER_PARSER
