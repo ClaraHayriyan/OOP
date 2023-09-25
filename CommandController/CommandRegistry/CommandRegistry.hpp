@@ -1,12 +1,21 @@
 #ifndef COMMAND_CONTROLLER_COMMAND_REGISTRY_COMMAND_REGISTRY
 #define COMMAND_CONTROLLER_COMMAND_REGISTRY_COMMAND_REGISTRY
 
-#include "ICommandRegistry.hpp"
+#include "../Command/Command.hpp"
 
-class CommandRegistry : public ICommandRegistry {
+#include <memory> // std::uniqe_ptr
+#include <string>
+#include <unordered_map>
+
+using CommandPtr = std::unique_ptr<Command>;
+
+class CommandRegistry {
+private:
+    using Registry = std::unordered_map<std::string, CommandPtr>;
+
 public:
     CommandRegistry();
-    virtual CommandPtr& findCommand(std::string) override;
+    CommandPtr findCommand(std::string);
 
 private:
     void registerCommands();

@@ -1,6 +1,7 @@
 #include "Parser.hpp"
 
 #include <stdexcept> // std::runtime_error
+#include <string>
 #include <utility> // std::move
 
 Parser::Parser(std::istream& input)
@@ -8,20 +9,28 @@ Parser::Parser(std::istream& input)
 {
 }
 
-CommandPtr& Parser::parseCommand() {
+std::stringstream Parser::inputCommand() {
+    std::string command;
+    getline(input_, command);
+    return std::stringstream(command);
+}
+
+CommandPtr Parser::parseCommand() {
+
+    std::stringstream stream = inputCommand();
+
     std::string token;
-    Result op;
+    double op;                  // op type is double yet
 
-    input_ >> token;
+    stream >> token;
 
-    CommandPtr& commandPtr = commandRegistry_.findCommand(token);
+    CommandPtr commandPtr = commandRegistry_.findCommand(token);
+    if(!commandPtr)
+        throw std::runtime_error("invalid command!");
 
-    while(input_ >> token) {
-        if(token[0] == '-') {
-            input_ >> op;
-            commandPtr->addOperand({token, op});
-        } else
-            throw std::runtime_error("invalid command!");
+    while(stream >> token) {
+            stream >> op;
+            commandPtr->addOperand(token, op);
     }
     return commandPtr;
 }
