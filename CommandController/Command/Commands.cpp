@@ -1,137 +1,137 @@
 #include "Commands.hpp"
 
 #include <cstdlib> // std::exit
-
-/// Arithmetic operations
+#include <iostream>
+#include <stdexcept> // std::runtime_error
 
 // Add
 
-void Add::validate() {
-
+Add::Add() {
+    registerOptions();
 }
 
-Result Add::execute() {
-    Result result {0};
-    for(auto op : operands)
-        result += std::get<1>(op);
-    return result;
+void Add::registerOptions() {
+    operandMap_["-op1"] = 0;
+    operandMap_["-op2"] = 0;
 }
 
-OptionSet Add::options { "op", "ops" };
+void Add::addOperand(std::string option, double operand) {
+    auto it = operandMap_.find(option);
+    if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    operandMap_[option] = operand;
+}
+
+void Add::execute() {
+    double result {0};
+    for(auto op : operandMap_)
+        result += op.second;
+    std::cout << result << std::endl;
+}
+
+Add* Add::create() {
+    return new Add;
+}
 
 // Sub
 
-void Sub::validate() {
-    
+Sub::Sub() {
+    registerOptions();
 }
 
-Result Sub::execute() {
-    return std::get<1>(operands[0]) - std::get<1>(operands[1]);
+void Sub::registerOptions() {
+    operandMap_["-op1"] = 0;
+    operandMap_["-op2"] = 0;
 }
 
-OptionSet Sub::options { "op", "ops" };
+void Sub::addOperand(std::string option, double operand) {
+    auto it = operandMap_.find(option);
+    if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    operandMap_[option] = operand;
+}
+
+void Sub::execute() {
+    auto op = operandMap_.begin();
+    double op2 {op->second};
+    ++op;
+    double op1 {op->second};
+    std::cout << op1 - op2 << std::endl;
+}
+
+Sub* Sub::create() {
+    return new Sub;
+}
 
 // Mul
 
-void Mul::validate() {
-    
+Mul::Mul() {
+    registerOptions();
 }
 
-Result Mul::execute() {
-    Result result {1};
-    for(auto op : operands)
-        result *= std::get<1>(op);
-    return result;
+void Mul::registerOptions() {
+    operandMap_["-op1"] = 0;
+    operandMap_["-op2"] = 0;
 }
 
-OptionSet Mul::options { "op", "ops" };
+void Mul::addOperand(std::string option, double operand) {
+    auto it = operandMap_.find(option);
+    if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    operandMap_[option] = operand;
+}
+
+void Mul::execute() {
+    double result {1};
+    for(auto op : operandMap_)
+        result *= op.second;
+    std::cout << result << std::endl;
+}
+
+Mul* Mul::create() {
+    return new Mul;
+}
 
 // Div
 
-void Div::validate() {
-    
+Div::Div() {
+    registerOptions();
 }
 
-Result Div::execute() {
-    return std::get<1>(operands[0]) / std::get<1>(operands[1]);
+void Div::registerOptions() {
+    operandMap_["-op1"] = 0;
+    operandMap_["-op2"] = 0;
 }
 
-OptionSet Div::options { "op", "ops" };
-
-/// Logical operations
-
-// And
-
-void And::validate() {
-    
+void Div::addOperand(std::string option, double operand) {
+    auto it = operandMap_.find(option);
+    if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    operandMap_[option] = operand;
 }
 
-Result And::execute() {
-    bool result {true};
-    for(auto op : operands) {
-        bool operand = std::get<1>(op);
-        result = result && operand;
-    }
-    return result;
+void Div::execute() {
+    auto op = operandMap_.begin();
+    double op2 {op->second};
+    ++op;
+    double op1 {op->second};
+    std::cout << op1 / op2 << std::endl;
 }
 
-OptionSet And::options { "op", "ops" };
-
-// Or
-
-void Or::validate() {
-    
+Div* Div::create() {
+    return new Div;
 }
-
-Result Or::execute() {
-    bool result {true};
-    for(auto op : operands) {
-        bool operand = std::get<1>(op);
-        result = result || operand;
-    }
-    return result;
-}
-
-OptionSet Or::options { "op", "ops" };
-
-// Xor
-
-void Xor::validate() {
-    
-}
-
-Result Xor::execute() {
-    bool result {true};
-    for(auto op : operands) {
-        bool operand = std::get<1>(op);
-        result = (!result && operand) || (!operand && result);
-    }
-    return result;
-}
-
-OptionSet Xor::options { "op", "ops" };
-
-// Not
-
-void Not::validate() {
-    
-}
-
-Result Not::execute() {
-    bool result = std::get<1>(operands[0]);
-    return !result;
-}
-
-OptionSet Not::options { "op" };
-
-/// Special commands
 
 // Quit
 
-void Quit::validate() {
-    
+void Quit::addOperand(std::string option, double operand) {
+    throw std::runtime_error("invalid command!");
 }
 
-Result Quit::execute() {
+void Quit::execute() {
     std::exit(0);
+}
+
+Quit* Quit::create() {
+    return new Quit;
 }

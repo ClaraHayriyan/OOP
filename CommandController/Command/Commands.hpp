@@ -3,93 +3,55 @@
 
 #include "Command.hpp"
 
-#include <string>
-#include <unordered_set>
-
-using OptionSet = std::unordered_set<std::string>;
-
-// Arithmetic commands
-
 class Add : public Command {
 public:
-    virtual void validate() override;
-    virtual Result execute() override;
+    Add();
+    virtual void addOperand(std::string option, double operand) override;
+    virtual void execute() override;
+    virtual Add* create() override;
 
 private:
-    static OptionSet options;
+    void registerOptions();
 };
 
 class Sub : public Command {
 public:
-    virtual void validate() override;
-    virtual Result execute() override;
+    Sub();
+    virtual void addOperand(std::string option, double operand) override;
+    virtual void execute() override;
+    virtual Sub* create() override;
 
 private:
-    static OptionSet options;
+    void registerOptions();
 };
 
 class Mul : public Command {
 public:
-    virtual void validate() override;
-    virtual Result execute() override;
+    Mul();
+    virtual void addOperand(std::string option, double operand) override;
+    virtual void execute() override;
+    virtual Mul* create() override;
 
 private:
-    static OptionSet options;
+    void registerOptions();
 };
 
 class Div : public Command {
 public:
-    virtual void validate() override;
-    virtual Result execute() override;
+    Div();
+    virtual void addOperand(std::string option, double operand) override;
+    virtual void execute() override;
+    virtual Div* create() override;
 
 private:
-    static OptionSet options;
+    void registerOptions();
 };
-
-// Logical commands
-
-class And : public Command {
-public:
-    virtual void validate() override;
-    virtual Result execute() override;
-
-private:
-    static OptionSet options;
-};
-
-class Or : public Command {
-public:
-    virtual void validate() override;
-    virtual Result execute() override;
-
-private:
-    static OptionSet options;
-};
-
-class Xor : public Command {
-public:
-    virtual void validate() override;
-    virtual Result execute() override;
-
-private:
-    static OptionSet options;
-};
-
-class Not : public Command {
-public:
-    virtual void validate() override;
-    virtual Result execute() override;
-
-private:
-    static OptionSet options;
-};
-
-// Special commands
 
 class Quit : public Command {
 public:
-    virtual void validate() override;
-    virtual Result execute() override;
+    virtual void addOperand(std::string option, double operand) override;
+    virtual void execute() override;
+    virtual Quit* create() override;
 };
 
 #endif // COMMAND_CONTROLLER_COMMAND_COMMAND

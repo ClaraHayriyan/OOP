@@ -2,17 +2,12 @@
 #define COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
 
 #include "../Parser/Parser.hpp"
-#include "../Printer/IPrinter.hpp"
 
 #include <istream>
-#include <memory> // std::unique_ptr
 
 class CommandController {
-private:
-    using PrinterPtr = std::unique_ptr<IPrinter>;
-
 public:
-    CommandController(std::istream&, PrinterPtr);
+    CommandController(std::istream&);
     void exec();
 
 private:
@@ -20,7 +15,6 @@ private:
 
 private:
     Parser parser_;
-    PrinterPtr printer_;
 };
 
 #endif // COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
