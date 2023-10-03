@@ -10,15 +10,15 @@
 using CommandPtr = std::unique_ptr<Command>;
 
 class CommandRegistry {
-private:
-    using Registry = std::unordered_map<std::string, CommandPtr>;
-
 public:
     CommandRegistry();
     CommandPtr findCommand(std::string);
 
 private:
     void registerCommands();
+
+private:
+    using Registry = std::unordered_map<std::string, CommandPtr>;
 
 private:
     Registry registry_;

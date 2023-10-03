@@ -20,5 +20,5 @@ void CommandController::exec() {
 
 void CommandController::run() {
     CommandPtr commandPtr = parser_.parseCommand();
-    commandPtr->execute();
+    commandPtr->execute(doc_);
 }
