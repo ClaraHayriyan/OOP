@@ -7,9 +7,9 @@ CommandRegistry::CommandRegistry() {
 
 void CommandRegistry::registerCommands() {
     registry_["add"] = CommandPtr(new Add);
-    registry_["sub"] = CommandPtr(new Sub);
-    registry_["mul"] = CommandPtr(new Mul);
-    registry_["div"] = CommandPtr(new Div);
+    registry_["change"] = CommandPtr(new Change);
+    registry_["remove"] = CommandPtr(new Remove);
+    registry_["display"] = CommandPtr(new Display);
     registry_["quit"] = CommandPtr(new Quit);
 }
 

@@ -1,5 +1,6 @@
 #include "Parser.hpp"
 
+#include <cctype>     // std::isalpha
 #include <stdexcept> // std::runtime_error
 #include <string>
 #include <utility> // std::move
@@ -20,7 +21,7 @@ CommandPtr Parser::parseCommand() {
     std::stringstream stream = inputCommand();
 
     std::string token;
-    double op;                  // op type is double yet
+    OperandType op;
 
     stream >> token;
 
@@ -29,8 +30,20 @@ CommandPtr Parser::parseCommand() {
         throw std::runtime_error("invalid command!");
 
     while(stream >> token) {
-            stream >> op;
-            commandPtr->addOperand(token, op);
+
+        char c;
+        stream >> c;
+        stream.putback(c);
+        if(std::isalpha(c)) {
+            std::string str;
+            stream >> str;
+            op = str;
+        } else {
+            int num;
+            stream >> num;
+            op = num;
+        }
+        commandPtr->addOperand(token, op);
     }
     return commandPtr;
 }

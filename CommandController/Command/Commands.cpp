@@ -3,6 +3,7 @@
 #include <cstdlib> // std::exit
 #include <iostream>
 #include <stdexcept> // std::runtime_error
+#include <utility> // std::move
 
 // Add
 
@@ -11,124 +12,142 @@ Add::Add() {
 }
 
 void Add::registerOptions() {
-    operandMap_["-op1"] = 0;
-    operandMap_["-op2"] = 0;
+    operandMap_["-name"] = "";
+    operandMap_["-TL"] = 0;
+    operandMap_["-BR"] = 0;
+    operandMap_["-fillColor"] = 0;
+    operandMap_["-lineColor"] = 0;
+    operandMap_["-lineWidth"] = 0;
 }
 
-void Add::addOperand(std::string option, double operand) {
+void Add::addOperand(std::string option, OperandType operand) {
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    if(it->second.index() != operand.index())
         throw std::runtime_error("invalid command!");
     operandMap_[option] = operand;
 }
 
-void Add::execute() {
-    double result {0};
-    for(auto op : operandMap_)
-        result += op.second;
-    std::cout << result << std::endl;
+void Add::execute(Document& doc) {
+    std::string name = std::get<1>(operandMap_["-name"]);
+    auto item = itemRegistry_.findItem(name);
+    for(auto op : operandMap_) {
+        if(op.first == "-name")
+            continue;
+        item->setPatameter(op.first, std::get<0>(op.second));
+    }
+    doc.addItem(std::move(item));
 }
 
 Add* Add::create() {
     return new Add;
 }
 
-// Sub
+// Change
 
-Sub::Sub() {
+Change::Change() {
     registerOptions();
 }
 
-void Sub::registerOptions() {
-    operandMap_["-op1"] = 0;
-    operandMap_["-op2"] = 0;
+void Change::registerOptions() {
+    operandMap_["-id"] = -1;
+    operandMap_["-TL"] = -1;
+    operandMap_["-BR"] = -1;
+    operandMap_["-fillColor"] = -1;
+    operandMap_["-lineColor"] = -1;
+    operandMap_["-lineWidth"] = -1;
 }
 
-void Sub::addOperand(std::string option, double operand) {
+void Change::addOperand(std::string option, OperandType operand) {
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    if(it->second.index() != operand.index())
         throw std::runtime_error("invalid command!");
     operandMap_[option] = operand;
 }
 
-void Sub::execute() {
-    auto op = operandMap_.begin();
-    double op2 {op->second};
-    ++op;
-    double op1 {op->second};
-    std::cout << op1 - op2 << std::endl;
+void Change::execute(Document& doc) {
+    int id = std::get<0>(operandMap_["-id"]);
+    ItemPtr& item = doc.getItem(id);
+
+    for(auto op : operandMap_) {
+        if(op.first == "-id")
+            continue;
+        item->setPatameter(op.first, std::get<0>(op.second));
+    }
 }
 
-Sub* Sub::create() {
-    return new Sub;
+Change* Change::create() {
+    return new Change;
 }
 
-// Mul
+// Remove
 
-Mul::Mul() {
+Remove::Remove() {
     registerOptions();
 }
 
-void Mul::registerOptions() {
-    operandMap_["-op1"] = 0;
-    operandMap_["-op2"] = 0;
+void Remove::registerOptions() {
+    operandMap_["-id"] = -1;
 }
 
-void Mul::addOperand(std::string option, double operand) {
+void Remove::addOperand(std::string option, OperandType operand) {
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    if(it->second.index() != operand.index())
         throw std::runtime_error("invalid command!");
     operandMap_[option] = operand;
 }
 
-void Mul::execute() {
-    double result {1};
-    for(auto op : operandMap_)
-        result *= op.second;
-    std::cout << result << std::endl;
+void Remove::execute(Document& doc) {
+    int id = std::get<0>(operandMap_["-id"]);
+    doc.removeItem(id);
 }
 
-Mul* Mul::create() {
-    return new Mul;
+Remove* Remove::create() {
+    return new Remove;
 }
 
-// Div
+// Display
 
-Div::Div() {
+Display::Display() {
     registerOptions();
 }
 
-void Div::registerOptions() {
-    operandMap_["-op1"] = 0;
-    operandMap_["-op2"] = 0;
+void Display::registerOptions() {
+    operandMap_["-id"] = -1;
 }
 
-void Div::addOperand(std::string option, double operand) {
+void Display::addOperand(std::string option, OperandType operand) {
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    if(it->second.index() != operand.index())
         throw std::runtime_error("invalid command!");
     operandMap_[option] = operand;
 }
 
-void Div::execute() {
-    auto op = operandMap_.begin();
-    double op2 {op->second};
-    ++op;
-    double op1 {op->second};
-    std::cout << op1 / op2 << std::endl;
+void Display::execute(Document& doc) {
+    int id = std::get<0>(operandMap_["-id"]);
+    ItemPtr& item = doc.getItem(id);
+    std::cout << item->getId() << " " << item->getName() << std::endl;
 }
 
-Div* Div::create() {
-    return new Div;
+Display* Display::create() {
+    return new Display;
 }
+
 
 // Quit
 
-void Quit::addOperand(std::string option, double operand) {
+void Quit::addOperand(std::string option, OperandType operand) {
     throw std::runtime_error("invalid command!");
 }
 
-void Quit::execute() {
+void Quit::execute(Document&) {
     std::exit(0);
 }
 
