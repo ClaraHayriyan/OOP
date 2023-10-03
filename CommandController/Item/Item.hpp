@@ -12,6 +12,7 @@ public:
     void setId(int id);
     void setPatameter(std::string key, int value);
     int getId() const;
+    std::string getParams() const;
     virtual std::string getName() const =0;
     virtual Item* create() =0;
     virtual ~Item() =default;

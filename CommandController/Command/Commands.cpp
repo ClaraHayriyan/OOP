@@ -32,6 +32,8 @@ void Add::addOperand(std::string option, OperandType operand) {
 void Add::execute(Document& doc) {
     std::string name = std::get<1>(operandMap_["-name"]);
     auto item = itemRegistry_.findItem(name);
+    if(!item)
+        throw std::runtime_error("invalid item name!");
     for(auto op : operandMap_) {
         if(op.first == "-name")
             continue;
@@ -73,7 +75,7 @@ void Change::execute(Document& doc) {
     ItemPtr& item = doc.getItem(id);
 
     for(auto op : operandMap_) {
-        if(op.first == "-id")
+        if(op.first == "-id" || std::get<0>(op.second) == -1)
             continue;
         item->setPatameter(op.first, std::get<0>(op.second));
     }
@@ -132,8 +134,14 @@ void Display::addOperand(std::string option, OperandType operand) {
 
 void Display::execute(Document& doc) {
     int id = std::get<0>(operandMap_["-id"]);
-    ItemPtr& item = doc.getItem(id);
-    std::cout << item->getId() << " " << item->getName() << std::endl;
+    if(id >= 0) {
+        ItemPtr& item = doc.getItem(id);
+        std::cout << item->getId() << " " << item->getName() << " " << item->getParams() << std::endl;
+        return;
+    }
+    for(auto& it : doc) {
+        std::cout << it->getId() << " " << it->getName() << std::endl;
+    }
 }
 
 Display* Display::create() {

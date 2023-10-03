@@ -1,6 +1,7 @@
 #include "Document.hpp"
 
 #include <algorithm> // std::find_if
+#include <stdexcept> // std::runtime_error
 
 #include <iostream> ////// temporary
 
@@ -13,11 +14,16 @@ void Document::addItem(ItemPtr item) {
 
 auto Document::getItem(int id) -> ItemPtr& {
     auto it = find(id);
+    if(it == items_.end())
+        throw std::runtime_error("incorrect id!");
     return *it;
 }
 
 void Document::removeItem(int id) {
     auto it = find(id);
+        throw std::runtime_error("incorrect id!");
+    ItemPtr& item = *it;
+    std::cout << item->getId() << " " << item->getName() << " removed!" << std::endl;
     items_.erase(it);
 }
 
@@ -27,6 +33,14 @@ auto Document::find(int id) -> Items::iterator {
                                 return item->getId() == id;
                             });
     return it;
+}
+
+auto Document::begin() -> Items::iterator {
+    return items_.begin();
+}
+
+auto Document::end() -> Items::iterator {
+    return items_.end();
 }
 
 int Document::itemCount_ {0};
