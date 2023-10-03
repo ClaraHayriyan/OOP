@@ -19,6 +19,10 @@ public:
 private:
     using Items = std::vector<ItemPtr>;
 
+public:
+    Items::iterator begin();
+    Items::iterator end();
+
 private:
     Items::iterator find(int id);
 

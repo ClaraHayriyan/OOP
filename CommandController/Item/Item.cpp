@@ -1,5 +1,6 @@
 #include "Item.hpp"
 
+#include <sstream>
 #include <stdexcept> // std::runtime_error
 
 Item::Item() {
@@ -27,4 +28,12 @@ void Item::setPatameter(std::string key, int value) {
 
 int Item::getId() const {
     return id_;
+}
+
+std::string Item::getParams() const {
+    std::stringstream stream;
+    for(auto it : params_) {
+        stream << it.first << " " << it.second << " ";
+    }
+    return stream.str();
 }
