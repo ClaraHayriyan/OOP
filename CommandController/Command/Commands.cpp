@@ -1,26 +1,31 @@
 #include "Commands.hpp"
+#include "../Item/Geometry.hpp"
+#include "../Item/Attributes.hpp"
 
 #include <cstdlib> // std::exit
 #include <iostream>
 #include <stdexcept> // std::runtime_error
 #include <utility> // std::move
 
-// Add
+// AddItem
 
-Add::Add() {
+AddItem::AddItem() {
     registerOptions();
 }
 
-void Add::registerOptions() {
-    operandMap_["-name"] = "";
-    operandMap_["-TL"] = 0;
-    operandMap_["-BR"] = 0;
-    operandMap_["-fillColor"] = 0;
-    operandMap_["-lineColor"] = 0;
-    operandMap_["-lineWidth"] = 0;
+void AddItem::registerOptions() {
+    operandMap_["slide"] = 0;
+    operandMap_["name"] = "";
+    operandMap_["TL_x"] = 0;
+    operandMap_["TL_y"] = 0;
+    operandMap_["BR_x"] = 0;
+    operandMap_["BR_y"] = 0;
+    operandMap_["fillColor"] = 0;
+    operandMap_["lineColor"] = 0;
+    operandMap_["lineWidth"] = 0;
 }
 
-void Add::addOperand(std::string option, OperandType operand) {
+void AddItem::addOperand(std::string option, OperandType operand) {
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -29,22 +34,38 @@ void Add::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void Add::execute(Document& doc) {
-    std::string name = std::get<1>(operandMap_["-name"]);
+void AddItem::execute(Document& doc) {
+    Geometry geom(std::get<0>(operandMap_["TL_x"]), std::get<0>(operandMap_["TL_y"]),
+                  std::get<0>(operandMap_["BR_x"]), std::get<0>(operandMap_["BR_y"]));
+    Attributes attr(std::get<0>(operandMap_["lineWidth"]), std::get<0>(operandMap_["lineColor"]),
+                    std::get<0>(operandMap_["fillColor"]));
+    int slideId = std::get<0>(operandMap_["slide"]);
+    Slide& slide = doc.getSlide(slideId);
+    std::string name = std::get<1>(operandMap_["name"]);
     auto item = itemRegistry_.findItem(name);
-    if(!item)
-        throw std::runtime_error("invalid item name!");
-    for(auto op : operandMap_) {
-        if(op.first == "-name")
-            continue;
-        item->setPatameter(op.first, std::get<0>(op.second));
-    }
-    doc.addItem(std::move(item));
+    item->setGeometry(geom);
+    item->setAttributes(attr);
+    slide.addItem(std::move(item));
 }
 
-Add* Add::create() {
-    return new Add;
+AddItem* AddItem::create() {
+    return new AddItem;
 }
+
+// AddSlide
+
+void AddSlide::addOperand(std::string option, OperandType operand) {
+    throw std::runtime_error("invalid command!");
+}
+
+void AddSlide::execute(Document& doc) {
+    doc.addSlide();
+}
+
+AddSlide* AddSlide::create() {
+    return new AddSlide;
+}
+
 
 // Change
 
@@ -53,12 +74,15 @@ Change::Change() {
 }
 
 void Change::registerOptions() {
-    operandMap_["-id"] = -1;
-    operandMap_["-TL"] = -1;
-    operandMap_["-BR"] = -1;
-    operandMap_["-fillColor"] = -1;
-    operandMap_["-lineColor"] = -1;
-    operandMap_["-lineWidth"] = -1;
+    operandMap_["slide"] = -1;
+    operandMap_["id"] = -1;
+    operandMap_["TL_x"] = -1;
+    operandMap_["TL_y"] = -1;
+    operandMap_["BR_x"] = -1;
+    operandMap_["BR_y"] = -1;
+    operandMap_["fillColor"] = -1;
+    operandMap_["lineColor"] = -1;
+    operandMap_["lineWidth"] = -1;
 }
 
 void Change::addOperand(std::string option, OperandType operand) {
@@ -71,11 +95,12 @@ void Change::addOperand(std::string option, OperandType operand) {
 }
 
 void Change::execute(Document& doc) {
-    int id = std::get<0>(operandMap_["-id"]);
-    ItemPtr& item = doc.getItem(id);
+    int slideId = std::get<0>(operandMap_["slide"]);
+    int id = std::get<0>(operandMap_["id"]);
+    ItemPtr& item = doc.getSlide(slideId).getItem(id);
 
     for(auto op : operandMap_) {
-        if(op.first == "-id" || std::get<0>(op.second) == -1)
+        if(op.first == "id" || std::get<0>(op.second) == -1)
             continue;
         item->setPatameter(op.first, std::get<0>(op.second));
     }
@@ -85,17 +110,18 @@ Change* Change::create() {
     return new Change;
 }
 
-// Remove
+// RemoveItem
 
-Remove::Remove() {
+RemoveItem::RemoveItem() {
     registerOptions();
 }
 
-void Remove::registerOptions() {
-    operandMap_["-id"] = -1;
+void RemoveItem::registerOptions() {
+    operandMap_["slide"] = -1;
+    operandMap_["id"] = -1;
 }
 
-void Remove::addOperand(std::string option, OperandType operand) {
+void RemoveItem::addOperand(std::string option, OperandType operand) {
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -104,13 +130,43 @@ void Remove::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void Remove::execute(Document& doc) {
-    int id = std::get<0>(operandMap_["-id"]);
-    doc.removeItem(id);
+void RemoveItem::execute(Document& doc) {
+    int slideId = std::get<0>(operandMap_["slide"]);
+    int id = std::get<0>(operandMap_["id"]);
+    doc.getSlide(slideId).removeItem(id);
 }
 
-Remove* Remove::create() {
-    return new Remove;
+RemoveItem* RemoveItem::create() {
+    return new RemoveItem;
+}
+
+// RemoveSlide
+
+
+RemoveSlide::RemoveSlide() {
+    registerOptions();
+}
+
+void RemoveSlide::registerOptions() {
+    operandMap_["slide"] = -1;
+}
+
+void RemoveSlide::addOperand(std::string option, OperandType operand) {
+    auto it = operandMap_.find(option);
+    if(it == operandMap_.end())
+        throw std::runtime_error("invalid command!");
+    if(it->second.index() != operand.index())
+        throw std::runtime_error("invalid command!");
+    operandMap_[option] = operand;
+}
+
+void RemoveSlide::execute(Document& doc) {
+    int slideId = std::get<0>(operandMap_["slide"]);
+    doc.removeSlide(slideId);
+}
+
+RemoveSlide* RemoveSlide::create() {
+    return new RemoveSlide;
 }
 
 // Display
@@ -120,7 +176,7 @@ Display::Display() {
 }
 
 void Display::registerOptions() {
-    operandMap_["-id"] = -1;
+    operandMap_["slide"] = -1;
 }
 
 void Display::addOperand(std::string option, OperandType operand) {
@@ -133,14 +189,16 @@ void Display::addOperand(std::string option, OperandType operand) {
 }
 
 void Display::execute(Document& doc) {
-    int id = std::get<0>(operandMap_["-id"]);
-    if(id >= 0) {
-        ItemPtr& item = doc.getItem(id);
-        std::cout << item->getId() << " " << item->getName() << " " << item->getParams() << std::endl;
+    int slideId = std::get<0>(operandMap_["slide"]);
+    if(slideId >= 0) {
+        Slide& slide = doc.getSlide(slideId);
+        for(auto& it : slide) {
+            std::cout << it->getId() << " " << it->getName() << std::endl;
+        }
         return;
     }
     for(auto& it : doc) {
-        std::cout << it->getId() << " " << it->getName() << std::endl;
+        std::cout << "slide " << it.getId() << std::endl;
     }
 }
 

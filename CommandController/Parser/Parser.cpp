@@ -43,6 +43,7 @@ CommandPtr Parser::parseCommand() {
             stream >> num;
             op = num;
         }
+        token.erase(token.begin());
         commandPtr->addOperand(token, op);
     }
     return commandPtr;

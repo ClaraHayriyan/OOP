@@ -5,18 +5,25 @@
 
 #include "../ItemRegistry/ItemRegistry.hpp"
 
-class Add : public Command {
+class AddItem : public Command {
 public:
-    Add();
+    AddItem();
     virtual void addOperand(std::string option, OperandType operand) override;
     virtual void execute(Document& doc) override;
-    virtual Add* create() override;
+    virtual AddItem* create() override;
 
 private:
     void registerOptions();
 
 private:
     ItemRegistry itemRegistry_;
+};
+
+class AddSlide : public Command {
+public:
+    virtual void addOperand(std::string option, OperandType operand) override;
+    virtual void execute(Document& doc) override;
+    virtual AddSlide* create() override;
 };
 
 class Change : public Command {
@@ -30,12 +37,23 @@ private:
     void registerOptions();
 };
 
-class Remove : public Command {
+class RemoveItem : public Command {
 public:
-    Remove();
+    RemoveItem();
     virtual void addOperand(std::string option, OperandType operand) override;
     virtual void execute(Document& doc) override;
-    virtual Remove* create() override;
+    virtual RemoveItem* create() override;
+
+private:
+    void registerOptions();
+};
+
+class RemoveSlide : public Command {
+public:
+    RemoveSlide();
+    virtual void addOperand(std::string option, OperandType operand) override;
+    virtual void execute(Document& doc) override;
+    virtual RemoveSlide* create() override;
 
 private:
     void registerOptions();

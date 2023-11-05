@@ -5,42 +5,42 @@
 
 #include <iostream> ////// temporary
 
-void Document::addItem(ItemPtr item) {
-    ++itemCount_;
-    item->setId(itemCount_);
-    items_.push_back(std::move(item));
-    std::cout << items_.back()->getId() << " " << items_.back()->getName() << " added!" << std::endl;
+void Document::addSlide() {
+    ++slideCount_;
+    slides_.emplace_back(slideCount_);
+    std::cout << "slide " << slides_.back().getId() << " added!" << std::endl;
 }
 
-auto Document::getItem(int id) -> ItemPtr& {
+Slide& Document::getSlide(int id) {
     auto it = find(id);
-    if(it == items_.end())
+    if(it == slides_.end())
         throw std::runtime_error("incorrect id!");
     return *it;
 }
 
-void Document::removeItem(int id) {
+void Document::removeSlide(int id) {
     auto it = find(id);
+    if(it == slides_.end())
         throw std::runtime_error("incorrect id!");
-    ItemPtr& item = *it;
-    std::cout << item->getId() << " " << item->getName() << " removed!" << std::endl;
-    items_.erase(it);
+    Slide& slide = *it;
+    std::cout << "slide " << slide.getId() << " removed!" << std::endl;
+    slides_.erase(it);
 }
 
-auto Document::find(int id) -> Items::iterator {
-    auto it = std::find_if(items_.begin(), items_.end(), 
-                            [id](ItemPtr& item) {
-                                return item->getId() == id;
+auto Document::find(int id) -> Slides::iterator {
+    auto it = std::find_if(slides_.begin(), slides_.end(), 
+                            [id](Slide& slide) {
+                                return slide.getId() == id;
                             });
     return it;
 }
 
-auto Document::begin() -> Items::iterator {
-    return items_.begin();
+auto Document::begin() -> Slides::iterator {
+    return slides_.begin();
 }
 
-auto Document::end() -> Items::iterator {
-    return items_.end();
+auto Document::end() -> Slides::iterator {
+    return slides_.end();
 }
 
-int Document::itemCount_ {0};
+int Document::slideCount_ {0};
