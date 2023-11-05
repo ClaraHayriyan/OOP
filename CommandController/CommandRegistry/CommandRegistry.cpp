@@ -6,9 +6,11 @@ CommandRegistry::CommandRegistry() {
 }
 
 void CommandRegistry::registerCommands() {
-    registry_["add"] = CommandPtr(new Add);
+    registry_["addItem"] = CommandPtr(new AddItem);
+    registry_["addSlide"] = CommandPtr(new AddSlide);
     registry_["change"] = CommandPtr(new Change);
-    registry_["remove"] = CommandPtr(new Remove);
+    registry_["removeItem"] = CommandPtr(new RemoveItem);
+    registry_["removeSlide"] = CommandPtr(new RemoveSlide);
     registry_["display"] = CommandPtr(new Display);
     registry_["quit"] = CommandPtr(new Quit);
 }
