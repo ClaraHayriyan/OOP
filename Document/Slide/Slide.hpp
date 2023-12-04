@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_DOCUMENT_SLIDE_HPP
-#define COMMAND_CONTROLLER_DOCUMENT_SLIDE_HPP
+#ifndef OOP_DOCUMENT_SLIDE_SLIDE_HPP
+#define OOP_DOCUMENT_SLIDE_SLIDE_HPP
 
 #include "../Item/Item.hpp"
 
@@ -33,4 +33,4 @@ private:
     static int itemCount_;
 };
 
-#endif // COMMAND_CONTROLLER_DOCUMENT_SLIDE_HPP
+#endif // OOP_DOCUMENT_SLIDE_SLIDE_HPP

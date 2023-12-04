@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_ITEM_GEOMETRY_HPP
-#define COMMAND_CONTROLLER_ITEM_GEOMETRY_HPP
+#ifndef OOP_DOCUMENT_ITEM_GEOMETRY_HPP
+#define OOP_DOCUMENT_ITEM_GEOMETRY_HPP
 
 #include <string>
 #include <unordered_map>
@@ -22,4 +22,4 @@ private:
     Registry reg_;
 };
 
-#endif // COMMAND_CONTROLLER_ITEM_GEOMETRY_HPP
+#endif // OOP_DOCUMENT_ITEM_GEOMETRY_HPP

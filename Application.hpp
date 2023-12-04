@@ -22,10 +22,10 @@ private:
     ~Application() =default;
 
 private:
-    CommandController _controller;
-    Document _document;
-    ItemRegistry _itemRegistry;
-    bool _quit;
+    CommandController controller_;
+    Document document_;
+    ItemRegistry itemRegistry_;
+    bool quit_;
 };
 
 #endif // OOP_APPLICATION_HPP

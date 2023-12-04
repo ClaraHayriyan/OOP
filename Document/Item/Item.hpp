@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_ITEM_ITEM
-#define COMMAND_CONTROLLER_ITEM_ITEM
+#ifndef OOP_DOCUMENT_ITEM_ITEM_HPP
+#define OOP_DOCUMENT_ITEM_ITEM_HPP
 
 #include "Geometry.hpp"
 #include "Attributes.hpp"
@@ -27,4 +27,4 @@ protected:
     Attributes attributes_;
 };
 
-#endif // COMMAND_CONTROLLER_ITEM_ITEM
+#endif // OOP_DOCUMENT_ITEM_ITEM_HPP

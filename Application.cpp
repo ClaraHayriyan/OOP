@@ -8,21 +8,21 @@ Application& Application::getInstance() {
 }
 
 Document& Application::getDocument() {
-    return getInstance()._document;
+    return getInstance().document_;
 }
 
 ItemRegistry& Application::getItemRegistry() {
-    return getInstance()._itemRegistry;
+    return getInstance().itemRegistry_;
 }
 
 bool& Application::getQuit() {
-    return getInstance()._quit;
+    return getInstance().quit_;
 }
 
 void Application::exec() {
-    while(!_quit) {
+    while(!quit_) {
         try {
-           _controller.run(); 
+           controller_.run(); 
         }
         catch (std::runtime_error err) {
             std::cout << err.what() << std::endl;
@@ -31,7 +31,7 @@ void Application::exec() {
 }
 
 Application::Application()
-: _controller(std::cin)
-, _quit(false)
+: controller_(std::cin)
+, quit_(false)
 {
 }
