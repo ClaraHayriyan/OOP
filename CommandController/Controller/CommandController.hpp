@@ -1,22 +1,18 @@
-#ifndef COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
-#define COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
+#ifndef OOP_COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER_HPP
+#define OOP_COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER_HPP
 
 #include "../Parser/Parser.hpp"
-#include "../Document/Document.hpp"
+#include "../../Document/Document/Document.hpp"
 
 #include <istream>
 
 class CommandController {
 public:
     CommandController(std::istream&);
-    void exec();
-
-private:
     void run();
 
 private:
     Parser parser_;
-    Document doc_;
 };
 
-#endif // COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
+#endif // OOP_COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER_HPP

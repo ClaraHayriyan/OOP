@@ -1,13 +1,13 @@
-#ifndef COMMAND_CONTROLLER_ITEM_ATTRIBUTES_HPP
-#define COMMAND_CONTROLLER_ITEM_ATTRIBUTES_HPP
+#ifndef OOP_DOCUMENT_ITEM_GEOMETRY_HPP
+#define OOP_DOCUMENT_ITEM_GEOMETRY_HPP
 
 #include <string>
 #include <unordered_map>
 
-class Attributes {
+class Geometry {
 public:
-    Attributes();
-    Attributes(int lineWidth, int lineColor, int fillColor);
+    Geometry();
+    Geometry(int tl_x, int tl_y, int br_x, int br_y);
     void set(std::string key, int value);
     int get(std::string key) const;
     bool find(std::string key) const;
@@ -22,4 +22,4 @@ private:
     Registry reg_;
 };
 
-#endif // COMMAND_CONTROLLER_ITEM_ATTRIBUTES_HPP
+#endif // OOP_DOCUMENT_ITEM_GEOMETRY_HPP

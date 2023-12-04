@@ -1,11 +1,12 @@
 #include "Commands.hpp"
-#include "../Item/Geometry.hpp"
-#include "../Item/Attributes.hpp"
+#include "../../Document/Item/Geometry.hpp"
+#include "../../Document/Item/Attributes.hpp"
+#include "../../Application.hpp"
 
-#include <cstdlib> // std::exit
 #include <iostream>
 #include <stdexcept> // std::runtime_error
 #include <utility> // std::move
+
 
 // AddItem
 
@@ -34,13 +35,13 @@ void AddItem::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void AddItem::execute(Document& doc) {
+void AddItem::execute() {
     Geometry geom(std::get<0>(operandMap_["TL_x"]), std::get<0>(operandMap_["TL_y"]),
                   std::get<0>(operandMap_["BR_x"]), std::get<0>(operandMap_["BR_y"]));
     Attributes attr(std::get<0>(operandMap_["lineWidth"]), std::get<0>(operandMap_["lineColor"]),
                     std::get<0>(operandMap_["fillColor"]));
     int slideId = std::get<0>(operandMap_["slide"]);
-    Slide& slide = doc.getSlide(slideId);
+    Slide& slide = Application::getDocument().getSlide(slideId);
     std::string name = std::get<1>(operandMap_["name"]);
     auto item = itemRegistry_.findItem(name);
     item->setGeometry(geom);
@@ -52,14 +53,15 @@ AddItem* AddItem::create() {
     return new AddItem;
 }
 
+
 // AddSlide
 
 void AddSlide::addOperand(std::string option, OperandType operand) {
     throw std::runtime_error("invalid command!");
 }
 
-void AddSlide::execute(Document& doc) {
-    doc.addSlide();
+void AddSlide::execute() {
+    Application::getDocument().addSlide();
 }
 
 AddSlide* AddSlide::create() {
@@ -94,10 +96,10 @@ void Change::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void Change::execute(Document& doc) {
+void Change::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
     int id = std::get<0>(operandMap_["id"]);
-    ItemPtr& item = doc.getSlide(slideId).getItem(id);
+    ItemPtr& item = Application::getDocument().getSlide(slideId).getItem(id);
 
     for(auto op : operandMap_) {
         if(op.first == "id" || std::get<0>(op.second) == -1)
@@ -109,6 +111,7 @@ void Change::execute(Document& doc) {
 Change* Change::create() {
     return new Change;
 }
+
 
 // RemoveItem
 
@@ -130,18 +133,18 @@ void RemoveItem::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void RemoveItem::execute(Document& doc) {
+void RemoveItem::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
     int id = std::get<0>(operandMap_["id"]);
-    doc.getSlide(slideId).removeItem(id);
+    Application::getDocument().getSlide(slideId).removeItem(id);
 }
 
 RemoveItem* RemoveItem::create() {
     return new RemoveItem;
 }
 
-// RemoveSlide
 
+// RemoveSlide
 
 RemoveSlide::RemoveSlide() {
     registerOptions();
@@ -160,14 +163,15 @@ void RemoveSlide::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void RemoveSlide::execute(Document& doc) {
+void RemoveSlide::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
-    doc.removeSlide(slideId);
+    Application::getDocument().removeSlide(slideId);
 }
 
 RemoveSlide* RemoveSlide::create() {
     return new RemoveSlide;
 }
+
 
 // Display
 
@@ -188,16 +192,16 @@ void Display::addOperand(std::string option, OperandType operand) {
     operandMap_[option] = operand;
 }
 
-void Display::execute(Document& doc) {
+void Display::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
     if(slideId >= 0) {
-        Slide& slide = doc.getSlide(slideId);
+        Slide& slide = Application::getDocument().getSlide(slideId);
         for(auto& it : slide) {
             std::cout << it->getId() << " " << it->getName() << std::endl;
         }
         return;
     }
-    for(auto& it : doc) {
+    for(auto& it : Application::getDocument()) {
         std::cout << "slide " << it.getId() << std::endl;
     }
 }
@@ -213,8 +217,8 @@ void Quit::addOperand(std::string option, OperandType operand) {
     throw std::runtime_error("invalid command!");
 }
 
-void Quit::execute(Document&) {
-    std::exit(0);
+void Quit::execute() {
+    Application::getQuit() = true;
 }
 
 Quit* Quit::create() {

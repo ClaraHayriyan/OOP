@@ -1,7 +1,7 @@
-#ifndef COMMAND_CONTROLLER_DOCUMENT_DOCUMENT
-#define COMMAND_CONTROLLER_DOCUMENT_DOCUMENT
+#ifndef OOP_DOCUMENT_DOCUMENT_DOCUMENT_HPP
+#define OOP_DOCUMENT_DOCUMENT_DOCUMENT_HPP
 
-#include "Slide.hpp"
+#include "../Slide/Slide.hpp"
 
 #include <vector>
 
@@ -26,4 +26,4 @@ private:
     static int slideCount_;
 };
 
-#endif // COMMAND_CONTROLLER_DOCUMENT_DOCUMENT
+#endif // OOP_DOCUMENT_DOCUMENT_DOCUMENT_HPP

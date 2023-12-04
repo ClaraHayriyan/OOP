@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_ITEM_ITEMS
-#define COMMAND_CONTROLLER_ITEM_ITEMS
+#ifndef OOP_DOCUMENT_ITEM_ITEMS_HPP
+#define OOP_DOCUMENT_ITEM_ITEMS_HPP
 
 #include "Item.hpp"
 
@@ -33,4 +33,4 @@ class Rhombus : public Item {
     virtual Rhombus* create() override;
 };
 
-#endif // COMMAND_CONTROLLER_ITEM_ITEMS
+#endif // OOP_DOCUMENT_ITEM_ITEMS_HPP

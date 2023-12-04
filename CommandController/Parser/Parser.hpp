@@ -1,5 +1,5 @@
-#ifndef COMMAND_CONTROLLER_PARSER_PARSER
-#define COMMAND_CONTROLLER_PARSER_PARSER
+#ifndef OOP_COMMAND_CONTROLLER_PARSER_PARSER_HPP
+#define OOP_COMMAND_CONTROLLER_PARSER_PARSER_HPP
 
 #include "../Command/Command.hpp"
 #include "../CommandRegistry/CommandRegistry.hpp"
@@ -20,4 +20,4 @@ private:
     CommandRegistry commandRegistry_;
 };
 
-#endif // COMMAND_CONTROLLER_PARSER_PARSER
+#endif // OOP_COMMAND_CONTROLLER_PARSER_PARSER_HPP

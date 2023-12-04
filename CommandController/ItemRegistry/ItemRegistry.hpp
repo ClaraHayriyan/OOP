@@ -1,7 +1,7 @@
-#ifndef COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY
-#define COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY
+#ifndef OOP_COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY_HPP
+#define OOP_COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY_HPP
 
-#include "../Item/Item.hpp"
+#include "../../Document/Item/Item.hpp"
 
 #include <memory> // std::unique_ptr
 #include <string>
@@ -24,4 +24,4 @@ private:
     Registry registry_;
 };
 
-#endif // COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY
+#endif // OOP_COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY_HPP
