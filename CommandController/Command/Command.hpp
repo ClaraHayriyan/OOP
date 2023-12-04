@@ -1,7 +1,7 @@
 #ifndef COMMAND_CONTROLLER_COMMAND_ICOMMAND
 #define COMMAND_CONTROLLER_COMMAND_ICOMMAND
 
-#include "../Document/Document.hpp"
+#include "../../Document/Document/Document.hpp"
 
 #include <string>
 #include <unordered_map>

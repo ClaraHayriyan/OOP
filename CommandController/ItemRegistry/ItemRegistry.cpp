@@ -1,6 +1,6 @@
 
 #include "ItemRegistry.hpp"
-#include "../Item/Items.hpp"
+#include "../../Document/Item/Items.hpp"
 
 ItemRegistry::ItemRegistry() {
     registerItems();

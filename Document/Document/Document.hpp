@@ -1,7 +1,7 @@
 #ifndef COMMAND_CONTROLLER_DOCUMENT_DOCUMENT
 #define COMMAND_CONTROLLER_DOCUMENT_DOCUMENT
 
-#include "Slide.hpp"
+#include "../Slide/Slide.hpp"
 
 #include <vector>
 

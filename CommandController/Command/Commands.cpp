@@ -1,6 +1,6 @@
 #include "Commands.hpp"
-#include "../Item/Geometry.hpp"
-#include "../Item/Attributes.hpp"
+#include "../../Document/Item/Geometry.hpp"
+#include "../../Document/Item/Attributes.hpp"
 
 #include <cstdlib> // std::exit
 #include <iostream>

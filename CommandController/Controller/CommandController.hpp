@@ -2,7 +2,7 @@
 #define COMMAND_CONTROLLER_CONTROLLER_COMMAND_CONTROLLER
 
 #include "../Parser/Parser.hpp"
-#include "../Document/Document.hpp"
+#include "../../Document/Document/Document.hpp"
 
 #include <istream>
 

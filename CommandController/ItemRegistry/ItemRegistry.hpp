@@ -1,7 +1,7 @@
 #ifndef COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY
 #define COMMAND_CONTROLLER_ITEM_REGISTRY_ITEM_REGISTRY
 
-#include "../Item/Item.hpp"
+#include "../../Document/Item/Item.hpp"
 
 #include <memory> // std::unique_ptr
 #include <string>

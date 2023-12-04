@@ -1,7 +1,5 @@
 #include "Slide.hpp"
 
-#include "Slide.hpp"
-
 #include <algorithm> // std::find_if
 #include <stdexcept> // std::runtime_error
 
