@@ -1,8 +1,5 @@
-#include "Controller/CommandController.hpp"
-
-#include <iostream>
+#include "Application.hpp"
 
 int main() {
-    CommandController controller{std::cin};
-    controller.exec();
+    Application::getInstance().exec();
 }
