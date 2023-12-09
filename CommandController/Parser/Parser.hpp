@@ -17,7 +17,7 @@ private:
 
 private:
     std::istream& input_;
-    CommandRegistry commandRegistry_;
+    CommandRegistry commandRegistry_; // TK:  Command registry doesn't belongs to Parsr, parser should get commands registry in its constructor
 };
 
 #endif // OOP_COMMAND_CONTROLLER_PARSER_PARSER_HPP

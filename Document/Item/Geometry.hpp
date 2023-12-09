@@ -13,7 +13,7 @@ public:
     bool find(std::string key) const;
 
 private:
-    using Registry = std::unordered_map<std::string, int>;
+    using Registry = std::unordered_map<std::string, int>; // TK: Attributes are sperate from geometry, Geometry  simple is arecangle
 
 private:
     void registerAttributes();
