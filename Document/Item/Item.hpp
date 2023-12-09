@@ -6,7 +6,7 @@
 
 #include <string>
 
-using ParametersMap = std::unordered_map<std::string, int>;
+using ParametersMap = std::unordered_map<std::string, int>; // Are your parmatere values always integers?
 
 class Item {
 public:
@@ -17,7 +17,7 @@ public:
     void setPatameter(std::string key, int value);
     int getParameter(std::string key);
     int getId() const;
-    virtual std::string getName() const =0;
+    virtual std::string getName() const =0; // Simply keep shape type (same thing as your item name) as member, you do not need polymorphism here
     virtual Item* create() =0;
     virtual ~Item() =default;
 
