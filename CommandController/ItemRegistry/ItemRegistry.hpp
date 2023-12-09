@@ -9,10 +9,11 @@
 
 using ItemPtr = std::unique_ptr<Item>;
 
+// TK: This need to be shape registry instead
 class ItemRegistry {
 public:
     ItemRegistry();
-    ItemPtr findItem(std::string name);
+    ItemPtr findItem(std::string name); // TK:  instead of find you need call it Create
 
 private:
     void registerItems();
