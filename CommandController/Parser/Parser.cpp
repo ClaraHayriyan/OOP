@@ -12,13 +12,13 @@ Parser::Parser(std::istream& input)
 
 std::stringstream Parser::inputCommand() {
     std::string command;
-    getline(input_, command);
+    getline(input_, command); // TK: This should be done in the controller, reading command line from input is not part of parsing, parser hav to parse whatever already fetched
     return std::stringstream(command);
 }
 
 CommandPtr Parser::parseCommand() {
 
-    std::stringstream stream = inputCommand();
+    std::stringstream stream = inputCommand(); // With this approach you can't call your parser from GUI app, inputCommand() is part of Controller, parsers input istream will be this 
 
     std::string token;
     OperandType op;
