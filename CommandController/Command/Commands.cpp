@@ -27,6 +27,7 @@ void AddItem::registerOptions() {
 }
 
 void AddItem::addOperand(std::string option, OperandType operand) {
+    // TK: Duplicatd code, you can create Abstract Base command class and move thismethod into Base
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -46,6 +47,7 @@ void AddItem::execute() {
     auto item = itemRegistry_.findItem(name);
     item->setGeometry(geom);
     item->setAttributes(attr);
+    // Start using actions, this call need to be in the action
     slide.addItem(std::move(item));
 }
 
@@ -88,6 +90,7 @@ void Change::registerOptions() {
 }
 
 void Change::addOperand(std::string option, OperandType operand) {
+    // TK: Duplicatd code, you can create Abstract Base command class and move thismethod into Base
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -104,6 +107,7 @@ void Change::execute() {
     for(auto op : operandMap_) {
         if(op.first == "id" || std::get<0>(op.second) == -1)
             continue;
+        // Start using actions, this call need to be in the action
         item->setPatameter(op.first, std::get<0>(op.second));
     }
 }
@@ -125,6 +129,7 @@ void RemoveItem::registerOptions() {
 }
 
 void RemoveItem::addOperand(std::string option, OperandType operand) {
+    // TK: Duplicatd code, you can create Abstract Base command class and move thismethod into Base
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -136,6 +141,7 @@ void RemoveItem::addOperand(std::string option, OperandType operand) {
 void RemoveItem::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
     int id = std::get<0>(operandMap_["id"]);
+    // Start using actions, this call need to be in the action
     Application::getDocument().getSlide(slideId).removeItem(id);
 }
 
@@ -155,6 +161,7 @@ void RemoveSlide::registerOptions() {
 }
 
 void RemoveSlide::addOperand(std::string option, OperandType operand) {
+    // TK: Duplicatd code, you can create Abstract Base command class and move thismethod into Base
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -165,6 +172,7 @@ void RemoveSlide::addOperand(std::string option, OperandType operand) {
 
 void RemoveSlide::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
+    // Start using actions, this call need to be in the action
     Application::getDocument().removeSlide(slideId);
 }
 
@@ -184,6 +192,7 @@ void Display::registerOptions() {
 }
 
 void Display::addOperand(std::string option, OperandType operand) {
+    // TK: Duplicatd code, you can create Abstract Base command class and move thismethod into Base
     auto it = operandMap_.find(option);
     if(it == operandMap_.end())
         throw std::runtime_error("invalid command!");
@@ -197,6 +206,7 @@ void Display::execute() {
     if(slideId >= 0) {
         Slide& slide = Application::getDocument().getSlide(slideId);
         for(auto& it : slide) {
+            // TK: Instead of directly using std::cout, use Rndering classes
             std::cout << it->getId() << " " << it->getName() << std::endl;
         }
         return;
@@ -218,7 +228,7 @@ void Quit::addOperand(std::string option, OperandType operand) {
 }
 
 void Quit::execute() {
-    Application::getQuit() = true;
+    Application::getQuit() = true; // TK: This should look like: Application::Quit();
 }
 
 Quit* Quit::create() {
