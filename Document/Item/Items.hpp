@@ -3,6 +3,9 @@
 
 #include "Item.hpp"
 
+// TK: you do not need differentiatd items, instead simply keep ShapeType in the item as generic field
+// You need to differentiate your Shaps instad
+
 class Line : public Item {
     virtual std::string getName() const override;
     virtual Line* create() override;
