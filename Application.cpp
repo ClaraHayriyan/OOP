@@ -15,6 +15,10 @@ ItemRegistry& Application::getItemRegistry() {
     return getInstance().itemRegistry_;
 }
 
+ConsoleView& Application::getView() {
+    return getInstance().view_;
+}
+
 bool& Application::getQuit() {
     return getInstance().quit_;
 }
@@ -25,13 +29,14 @@ void Application::exec() {
            controller_.run(); 
         }
         catch (std::runtime_error err) {
-            std::cout << err.what() << std::endl;
+            view_.displayMessage(err.what());
         }
     }
 }
 
 Application::Application()
 : controller_(std::cin)
+, view_(std::cout)
 , quit_(false)
 {
 }

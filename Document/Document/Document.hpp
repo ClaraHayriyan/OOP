@@ -17,6 +17,8 @@ private:
 public:
     Slides::iterator begin();
     Slides::iterator end();
+    Slides::const_iterator begin() const;
+    Slides::const_iterator end() const;
 
 private:
     Slides::iterator find(int id);

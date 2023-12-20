@@ -32,12 +32,12 @@ Triangle* Triangle::create() {
     return new Triangle;
 }
 
-std::string Table::getName() const {
-    return "Table";
+std::string Trapezoid::getName() const {
+    return "Trapezoid";
 }
 
-Table* Table::create() {
-    return new Table;
+Trapezoid* Trapezoid::create() {
+    return new Trapezoid;
 }
 
 std::string Rhombus::getName() const {

@@ -23,6 +23,8 @@ private:
 public:
     Items::iterator begin();
     Items::iterator end();
+    Items::const_iterator begin() const;
+    Items::const_iterator end() const;
 
 private:
     Items::iterator find(int id);
