@@ -23,9 +23,9 @@ class Triangle : public Item {
     virtual Triangle* create() override;
 };
 
-class Table : public Item {
+class Trapezoid : public Item {
     virtual std::string getName() const override;
-    virtual Table* create() override;
+    virtual Trapezoid* create() override;
 };
 
 class Rhombus : public Item {

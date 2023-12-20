@@ -8,7 +8,6 @@
 void Document::addSlide() {
     ++slideCount_;
     slides_.emplace_back(slideCount_);
-    std::cout << "slide " << slides_.back().getId() << " added!" << std::endl;
 }
 
 Slide& Document::getSlide(int id) {
@@ -23,7 +22,6 @@ void Document::removeSlide(int id) {
     if(it == slides_.end())
         throw std::runtime_error("incorrect id!");
     Slide& slide = *it;
-    std::cout << "slide " << slide.getId() << " removed!" << std::endl;
     slides_.erase(it);
 }
 
@@ -40,6 +38,14 @@ auto Document::begin() -> Slides::iterator {
 }
 
 auto Document::end() -> Slides::iterator {
+    return slides_.end();
+}
+
+std::vector<Slide>::const_iterator Document::begin() const {
+    return slides_.begin();
+}
+
+std::vector<Slide>::const_iterator Document::end() const {
     return slides_.end();
 }
 

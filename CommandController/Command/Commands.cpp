@@ -102,7 +102,7 @@ void Change::execute() {
     ItemPtr& item = Application::getDocument().getSlide(slideId).getItem(id);
 
     for(auto op : operandMap_) {
-        if(op.first == "id" || std::get<0>(op.second) == -1)
+        if(op.first == "id" || op.first == "slide" || std::get<0>(op.second) < 0)
             continue;
         item->setPatameter(op.first, std::get<0>(op.second));
     }
@@ -196,14 +196,10 @@ void Display::execute() {
     int slideId = std::get<0>(operandMap_["slide"]);
     if(slideId >= 0) {
         Slide& slide = Application::getDocument().getSlide(slideId);
-        for(auto& it : slide) {
-            std::cout << it->getId() << " " << it->getName() << std::endl;
-        }
+        Application::getView().display(slide);
         return;
     }
-    for(auto& it : Application::getDocument()) {
-        std::cout << "slide " << it.getId() << std::endl;
-    }
+    Application::getView().display(Application::getDocument());
 }
 
 Display* Display::create() {

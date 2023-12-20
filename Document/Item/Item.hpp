@@ -15,7 +15,7 @@ public:
     void setGeometry(const Geometry& geom);
     void setAttributes(const Attributes& attr);
     void setPatameter(std::string key, int value);
-    int getParameter(std::string key);
+    int getParameter(std::string key) const;
     int getId() const;
     virtual std::string getName() const =0;
     virtual Item* create() =0;

@@ -35,7 +35,7 @@ void Item::setPatameter(std::string key, int value) {
     throw std::runtime_error("invalid parameter for an object!");
 }
 
-int Item::getParameter(std::string key) {
+int Item::getParameter(std::string key) const {
     if(geometry_.find(key))
         return geometry_.get(key);
     if(attributes_.find(key))
